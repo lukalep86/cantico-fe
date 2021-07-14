@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "cantico-fe"
+  "defaultProject": "cantico-fe",
+  "cli": {
+    "analytics": "670497aa-0c29-4f5a-8649-1b6ccf2187d3"
+  }
 }

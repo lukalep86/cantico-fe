@@ -8,7 +8,7 @@ export const environment = {
 
 export const apiUrl = {
   // domain: 'http://7c760ac1dbb9.ngrok.io'
-  domani: 'http://localhost:8088'
+  domain: 'http://localhost:8088'
 };
 
 /*
