@@ -131,10 +131,15 @@ export class ProfileInformationComponent implements OnInit {
       this.subscriptions.add(
         this.dirService.getUserProfile(this.userEmail).subscribe({
           next: (data: IUserProfile) => {
-            this.profileInformationForm.patchValue(data);
-            this.profileLoaded = true;
-            this.idUserInfoProfile = data.idUserInfoProfile;
-            this.getNotifications();
+            if (data?.idUserInfoProfile) {
+              this.profileInformationForm.patchValue(data);
+              this.profileLoaded = true;
+              this.idUserInfoProfile = data.idUserInfoProfile;
+              this.getNotifications();
+            } else {
+              this.profileInformationForm.get('email').setValue(this.userEmail);
+              this.profileLoaded = true;
+            }
           }
         })
       );
