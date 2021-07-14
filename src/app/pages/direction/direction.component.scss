@@ -1,0 +1,65 @@
+.go-home {
+  position: absolute;
+  top: 30px;
+}
+
+.info-container {
+  margin: 0 auto 50px;
+  max-width: 1080px;
+  display: flex;
+  .half-container {
+    width: calc(50% - 15px);
+    &.left {
+      margin-right: 15px;
+    }
+    &.right {
+      margin-left: 15px;
+    }
+  }
+}
+
+.card-container {
+  position: relative;
+  padding: 20px;
+  padding-top: 40px;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  .card-title {
+    position: absolute;
+    top: -18px;
+    background-color: white;
+    padding: 0 10px;
+    h2 {
+      margin: 0;
+    }
+  }
+  mat-form-field {
+    width: 100%;
+  }
+  .age-field {
+    width: calc(50% - 10px);
+    &.left {
+      margin-right: 10px;
+    }
+    &.right {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .page-wrapper {
+    padding: 20px 15px;
+  }
+
+  .info-container {
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    .half-container {
+      &.responsive {
+        width: 100%;
+        margin: 0 0 50px 0;
+      }
+    }
+  }
+}

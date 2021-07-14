@@ -1,0 +1,29 @@
+.go-home {
+  position: absolute;
+  top: 30px;
+}
+
+.result-container {
+  margin: 0 auto 50px;
+  max-width: 1080px;
+}
+
+.card-container {
+  position: relative;
+  padding: 20px;
+  padding-top: 40px;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  .card-title {
+    position: absolute;
+    top: -18px;
+    background-color: white;
+    padding: 0 10px;
+    h2 {
+      margin: 0;
+    }
+  }
+  mat-form-field {
+    width: 100%;
+  }
+}

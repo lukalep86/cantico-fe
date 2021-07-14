@@ -1,0 +1,331 @@
+<div class="page-wrapper">
+  <h1 class="page-title">Informazioni profilo</h1>
+  <div class="go-home">
+    <button mat-raised-button color="primary" (click)="goHome()">
+      <mat-icon>
+        arrow_back
+      </mat-icon>
+      Indietro
+    </button>
+  </div>
+  <form [formGroup]="queryForm" (ngSubmit)="searchUsers()">
+    <div class="info-container" >
+      <div class="half-container left responsive">
+        <div class="card-container">
+          <div class="card-title">
+            <h2>Info personali</h2>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="gender">
+                Sesso
+              </mat-label>
+              <mat-select formControlName="gender" multiple>
+                <mat-option value="m">Maschio</mat-option>
+                <mat-option value="f">Femmina</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('gender').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="age-field left" appearance="outline">
+              <mat-label for="fromAge">
+                Età (da)
+              </mat-label>
+              <input
+                matInput
+                formControlName="fromAge"
+                type="number"
+                name="fromAge"
+              >
+              <mat-error *ngIf="queryForm.get('fromAge').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="age-field right" appearance="outline">
+              <mat-label for="toAge">
+                Età (a)
+              </mat-label>
+              <input
+                matInput
+                formControlName="toAge"
+                type="number"
+                name="toAge"
+              >
+              <mat-error *ngIf="queryForm.get('toAge').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="maritalStatus">
+                Stato
+              </mat-label>
+              <mat-select formControlName="maritalStatus" multiple>
+                <mat-option value="celibe">Celibe/nubile</mat-option>
+                <mat-option value="coniugato">Coniguato/a</mat-option>
+                <mat-option value="divorziato">Divorziato/a</mat-option>
+                <mat-option value="vedovo">Vedovo/a</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('maritalStatus').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="education">
+                Grado di istruzione
+              </mat-label>
+              <mat-select formControlName="education" multiple>
+                <mat-option value="terza media">Terza media</mat-option>
+                <mat-option value="diploma">Diploma</mat-option>
+                <mat-option value="laurea">Laurea</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('education').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="geoLocation">
+                Locazione geografica
+              </mat-label>
+              <mat-select formControlName="geoLocation">
+                <mat-option *ngFor="let loc of locations" [value]="loc">
+                  {{ loc | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('geoLocation').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="languages">
+                Lingue conosciute
+              </mat-label>
+              <mat-select formControlName="languages" multiple>
+                <mat-checkbox
+                  class="select-all-checkbox"
+                  color="primary"
+                  [checked]="checkIfAllSelected('languages', languages)"
+                  (change)="selectDeselectAll($event.checked, 'languages', languages)"
+                >
+                  Seleziona tutte
+                </mat-checkbox>
+                <mat-option *ngFor="let lang of languages" [value]="lang">
+                  {{ lang | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('languages').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="employment">
+                Occupazione
+              </mat-label>
+              <mat-select formControlName="employment" multiple>
+                <mat-option *ngFor="let emp of employments" [value]="emp">
+                  {{ emp | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('employment').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="frequenter">
+                Frequentatore assiduo o casuale
+              </mat-label>
+              <mat-select formControlName="frequenter" multiple>
+                <mat-option value="assiduo">Assiduo</mat-option>
+                <mat-option value="casuale">Casuale</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('frequenter').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="deviceUse">
+                Abilità nell'uso di specifici devices
+              </mat-label>
+              <mat-select formControlName="deviceUse">
+                <mat-option value=true>Si</mat-option>
+                <mat-option value=false>No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('deviceUse').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="reasonDeviceUse">
+                Relazione dell'utente con la tecnologia
+              </mat-label>
+              <mat-select formControlName="reasonDeviceUse" multiple>
+                <mat-option value="scarsa">Scarsa</mat-option>
+                <mat-option value="mediocre">Mediocre</mat-option>
+                <mat-option value="buona">Buona</mat-option>
+                <mat-option value="ottima">Ottima</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('reasonDeviceUse').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="notifications">
+                Modalità di ricezione notifiche
+              </mat-label>
+              <mat-select formControlName="notifications" multiple>
+                <mat-option value="sms">SMS</mat-option>
+                <mat-option value="email">Email</mat-option>
+                <mat-option value="push">Push</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="half-container right responsive">
+        <div class="card-container">
+          <div class="card-title">
+            <h2>Info generiche</h2>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="eventFrequency">
+                Frequenza di partecipazione a spettacoli teatrali
+              </mat-label>
+              <mat-select formControlName="eventFrequency" multiple>
+                <mat-option value="settimanale">Settimanale</mat-option>
+                <mat-option value="mensile">Mensile</mat-option>
+                <mat-option value="annuale">Annuale</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('eventFrequency').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="viewer">
+                Spettatore singolo/gruppo
+              </mat-label>
+              <mat-select formControlName="viewer">
+                <mat-option value="singolo">Singolo</mat-option>
+                <mat-option value="gruppo">Gruppo</mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('viewer').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="operaType">
+                Tipologia di opere
+              </mat-label>
+              <mat-select formControlName="operaType" multiple>
+                <mat-option *ngFor="let opera of operaTypes" [value]="opera">
+                  {{ opera | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('operaType').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="purchasingOperaItems">
+                Acquisti relativi ad opere
+              </mat-label>
+              <mat-select formControlName="purchasingOperaItems" multiple>
+                <mat-option
+                  *ngFor="let purchasedItem of purchasedItems"
+                  [value]="purchasedItem"
+                >
+                  {{ purchasedItem | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('purchasingOperaItems').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="communityAttendance">
+                Partecipazione a community/blog
+              </mat-label>
+              <mat-select formControlName="communityAttendance">
+                <mat-option value="true">Si</mat-option>
+                <mat-option value="false">No</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="hobbies">
+                Hobby
+              </mat-label>
+              <mat-select formControlName="hobbies" multiple>
+                <mat-option *ngFor="let hobby of hobbies" [value]="hobby">
+                  {{ hobby | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="queryForm.get('hobbies').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="culturalInteresting">
+                Interessi culturali
+              </mat-label>
+              <mat-select formControlName="culturalInteresting" multiple>
+                <mat-option
+                  *ngFor="let cultInt of culturalInterests"
+                  [value]="cultInt"
+                >
+                  {{ cultInt | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="queryForm.get('culturalInteresting').invalid"
+              >
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ta-center">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!queryForm.dirty"
+      >
+        Ricerca utenti
+      </button>
+    </div>
+  </form>
+</div>

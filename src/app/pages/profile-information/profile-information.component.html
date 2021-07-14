@@ -1,0 +1,354 @@
+<div class="page-wrapper">
+  <h1 class="page-title">Informazioni profilo</h1>
+  <div class="go-home">
+    <button mat-raised-button color="primary" (click)="goHome()">
+      <mat-icon>
+        arrow_back
+      </mat-icon>
+      Indietro
+    </button>
+  </div>
+  <div class="notifications">
+    <button
+      [matMenuTriggerFor]="notif"
+      mat-mini-fab
+      color="primary"
+    >
+      <mat-icon
+        [matBadge]="unreadPushNotifications?.length || null"
+        matBadgeColor="warn"
+      >notifications</mat-icon>
+    </button>
+    <mat-menu #notif="matMenu">
+      <button
+        mat-menu-item
+        *ngFor="let notification of pushNotifications"
+        (click)="checkNotification(notification)"
+      >
+        <span [ngClass]="{ 'fw-700' : !notification.checked }">
+          {{ notification?.content }}
+        </span>
+      </button>
+    </mat-menu>
+  </div>
+  <form [formGroup]="profileInformationForm" (ngSubmit)="sendForm()">
+    <div class="info-container" >
+      <div class="half-container left responsive">
+        <div class="card-container">
+          <div class="card-title">
+            <h2>Info personali</h2>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="gender">
+                Sesso
+              </mat-label>
+              <mat-select formControlName="gender">
+                <mat-option value="m">Maschio</mat-option>
+                <mat-option value="f">Femmina</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('gender').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="age">
+                Età
+              </mat-label>
+              <input
+                matInput
+                formControlName="age"
+                type="number"
+                name="age"
+              >
+              <mat-error *ngIf="profileInformationForm.get('age').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="maritalStatus">
+                Stato
+              </mat-label>
+              <mat-select formControlName="maritalStatus">
+                <mat-option value="celibe">Celibe/nubile</mat-option>
+                <mat-option value="coniugato">Coniguato/a</mat-option>
+                <mat-option value="divorziato">Divorziato/a</mat-option>
+                <mat-option value="vedovo">Vedovo/a</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('maritalStatus').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="education">
+                Grado di istruzione
+              </mat-label>
+              <mat-select formControlName="education">
+                <mat-option value="terza media">Terza media</mat-option>
+                <mat-option value="diploma">Diploma</mat-option>
+                <mat-option value="laurea">Laurea</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('education').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="geoLocation">
+                Locazione geografica
+              </mat-label>
+              <mat-select formControlName="geoLocation">
+                <mat-option *ngFor="let loc of locations" [value]="loc">
+                  {{ loc | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('geoLocation').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="languages">
+                Lingue conosciute
+              </mat-label>
+              <mat-select formControlName="languages" multiple>
+                <!-- <mat-checkbox
+                  class="select-all-checkbox"
+                  color="primary"
+                  [checked]="checkIfAllSelected('languages', languages)"
+                  (change)="selectDeselectAll($event.checked, 'languages', languages)"
+                >
+                  Seleziona tutte
+                </mat-checkbox> -->
+                <mat-option *ngFor="let lang of languages" [value]="lang">
+                  {{ lang | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('languages').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="employment">
+                Occupazione
+              </mat-label>
+              <mat-select formControlName="employment">
+                <mat-option *ngFor="let emp of employments" [value]="emp">
+                  {{ emp | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('employment').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="frequenter">
+                Frequentatore assiduo o casuale
+              </mat-label>
+              <mat-select formControlName="frequenter">
+                <mat-option value="assiduo">Assiduo</mat-option>
+                <mat-option value="casuale">Casuale</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('frequenter').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="deviceUse">
+                Abilità nell'uso di specifici devices
+              </mat-label>
+              <mat-select formControlName="deviceUse">
+                <mat-option [value]="true">Si</mat-option>
+                <mat-option [value]="false">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('deviceUse').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="reasonDeviceUse">
+                Relazione dell'utente con la tecnologia
+              </mat-label>
+              <mat-select formControlName="reasonDeviceUse">
+                <mat-option value="scarsa">Scarsa</mat-option>
+                <mat-option value="mediocre">Mediocre</mat-option>
+                <mat-option value="buona">Buona</mat-option>
+                <mat-option value="ottima">Ottima</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('reasonDeviceUse').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div style="margin-left: 10px;">
+            <div>
+              <mat-label for="notifications">
+                Modalità di ricezione notifiche
+              </mat-label>
+            </div>
+            <div formArrayName="notifications" class="d-flex justify-content-sb" style="margin-top: 10px;">
+              <div
+                *ngFor="let notif of notifications?.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <mat-checkbox
+                  formControlName="enabled"
+                  color="primary"
+                >{{ notif.get('description').value }}</mat-checkbox>
+              </div>
+              <!-- <div [formGroupName]="1">
+                <mat-checkbox formControlName="sms" color="primary">SMS</mat-checkbox>
+              </div>
+              <div [formGroupName]="2">
+                <mat-checkbox formControlName="sms" color="primary">Email</mat-checkbox>
+              </div>
+              <div [formGroupName]="3">
+                <mat-checkbox formControlName="sms" color="primary">Push</mat-checkbox>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="half-container right responsive">
+        <div class="card-container">
+          <div class="card-title">
+            <h2>Info generiche</h2>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="eventFrequency">
+                Frequenza di partecipazione a spettacoli teatrali
+              </mat-label>
+              <mat-select formControlName="eventFrequency">
+                <mat-option value="settimanale">Settimanale</mat-option>
+                <mat-option value="mensile">Mensile</mat-option>
+                <mat-option value="annuale">Annuale</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('eventFrequency').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="viewer">
+                Spettatore singolo/gruppo
+              </mat-label>
+              <mat-select formControlName="viewer">
+                <mat-option value="singolo">Singolo</mat-option>
+                <mat-option value="gruppo">Gruppo</mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('viewer').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="operaType">
+                Tipologia di opere
+              </mat-label>
+              <mat-select formControlName="operaType" multiple>
+                <mat-option *ngFor="let opera of operaTypes" [value]="opera">
+                  {{ opera | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('operaType').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="purchasingOperaItems">
+                Acquisti relativi ad opere
+              </mat-label>
+              <mat-select formControlName="purchasingOperaItems" multiple>
+                <mat-option
+                  *ngFor="let purchasedItem of purchasedItems"
+                  [value]="purchasedItem"
+                >
+                  {{ purchasedItem | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('purchasingOperaItems').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="communityAttendance">
+                Partecipazione a community/blog
+              </mat-label>
+              <mat-select formControlName="communityAttendance">
+                <mat-option [value]="true">Si</mat-option>
+                <mat-option [value]="false">No</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="hobby">
+                Hobby
+              </mat-label>
+              <mat-select formControlName="hobby" multiple>
+                <mat-option *ngFor="let hobby of hobbies" [value]="hobby">
+                  {{ hobby | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="profileInformationForm.get('hobby').invalid">
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label for="culturalInteresting">
+                Interessi culturali
+              </mat-label>
+              <mat-select formControlName="culturalInteresting" multiple>
+                <mat-option
+                  *ngFor="let cultInt of culturalInterests"
+                  [value]="cultInt"
+                >
+                  {{ cultInt | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="profileInformationForm.get('culturalInteresting').invalid"
+              >
+                Campo obbligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ta-center">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Salva
+      </button>
+    </div>
+  </form>
+</div>

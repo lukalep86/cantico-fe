@@ -1,0 +1,48 @@
+<div class="page-wrapper">
+  <h1 class="page-title">Risultati ricerca</h1>
+  <div class="go-home">
+    <button mat-raised-button color="primary" (click)="goHome()">
+      <mat-icon>
+        arrow_back
+      </mat-icon>
+      Indietro
+    </button>
+  </div>
+  <div class="result-container">
+    <div class="card-container">
+      <div class="card-title">
+        <h2>Risultati</h2>
+      </div>
+      <div>
+        <span>Sono stati trovati <span class="fw-700 fs-18">{{ resultData?.length || 0 }}</span> utenti</span>
+      </div>
+    </div>
+    <div *ngIf="resultData?.length" class="card-container mt-60">
+      <div class="card-title">
+        <h2>Invia Invito</h2>
+      </div>
+      <form [formGroup]="invitationForm" (ngSubmit)="sendInvitation()">
+        <mat-form-field appearance="outline">
+          <mat-label for="content">
+            Messaggio
+          </mat-label>
+          <textarea
+            matInput
+            type="text"
+            formControlName="content"
+          ></textarea>
+          <mat-error *ngIf="invitationForm.get('content').invalid">
+            Campo obbligatorio
+          </mat-error>
+        </mat-form-field>
+        <div class="ta-center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+          >Invia</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

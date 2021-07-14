@@ -1,0 +1,26 @@
+<div class="page-wrapper">
+  <h1 class="site-title">CANTICO</h1>
+  <form class="credentials-form" [formGroup]="credentialsForm" (ngSubmit)="login()">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label for="email">
+          Email
+        </mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          formControlName="email"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="ta-center">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >Accedi</button>
+    </div>
+  </form>
+</div>
