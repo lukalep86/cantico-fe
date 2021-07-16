@@ -10,7 +10,9 @@ RUN npm install -g @angular/cli@10.0.1
 ENV PATH /app/node_modules/.bin:$PATH
 
 # Dynamically configurable backend endpoint
-RUN printf "export const apiUrl = {\n\tdomain: 'http://${BE_HOST}'\n};\n" >> src/environments/environment.prod.ts
+ARG BE_HOST
+ENV BE_HOST $BE_HOST
+RUN printf "export const apiUrl = {\n\tdomain: 'http://$BE_HOST'\n};\n" >> src/environments/environment.prod.ts
 
 RUN ng build --output-path=dist --prod
 

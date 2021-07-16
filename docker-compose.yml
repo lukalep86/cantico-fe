@@ -7,6 +7,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            args:
+                - BE_HOST=${BE_HOST}
         image: eai/cantico-profile-fe
         ports:
             - "${FE_PORT}:80"
