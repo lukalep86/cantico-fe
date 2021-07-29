@@ -37,4 +37,27 @@ A `docker-compose.yml` is also provided in order to build and deploy the contain
 docker-compose up --force-recreate --build
 ```
 
-The `.env` file contains the environment variables used to customize the application during the build with `docker-compose`.
+The `.env` file contains the environment variables used to customize the application during the build with `docker-compose`. An example `.env` file is provided, with deploy configuration for Innovaway server.
+
+## Note
+Ai fini del test sono state inserite alcune anagrafiche. Le mail attive per poter compilare i profili legati alle suddette anagrafiche sono le seguenti:
+
+* luca-cantico@mailinator.com
+* claudio-cantico@mailinator.com
+* ale-cantico@mailinator.com
+* vale-cantico@mailinator.com
+* anto-cantico@mailinator.com
+* nargi-cantico@mailinator.com
+* parisi-cantico@mailinator.com
+* stella-cantico@mailinator.com
+* francesca-cantico@mailinator.com
+
+Per accedere alle caselle di posta, collegarsi a [Mailinator](https://www.mailinator.com/) e inserire la casella di posta desiderata nel campo `Enter Public Mailinator Inbox` e cliccare su `GO`.
+
+## Manuale d'uso
+All'avvio l'applicazione si presenta così
+![Home](res/home.png)
+
+Inserendo una mail e cliccando su `Info profilo` è possibile compilare il profilo per l'utente associato all'indirizzo email. Una volta compilati i dati, cliccare su `Salva` in fondo alla pagina e poi su `Indietro`.
+
+Cliccando su `Direzione` senza inserire un indirizzo email è possibile accedere alla sezione dedicata ai direttori dei teatri, in cui è possibile effettuare una ricerca degli utenti filtrando per dati di profilazione. Una volta trovati gli utenti corrispondenti ai criteri di ricerca, è possibile mandare un messaggio utilizzando per ognuno di essi il canale di notifica preferito (email, sms, push).
